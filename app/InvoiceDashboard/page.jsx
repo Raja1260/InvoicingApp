@@ -43,6 +43,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -199,31 +201,32 @@ export default function Dashboard() {
     <Box
       component="span"
       sx={{
-        ml: 0.5,
-        display: "flex",
+        display: "inline-flex",
         flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        ml: 0.3,
+        position: "relative",
+        top: 2, // adjust vertical alignment with header text
         cursor: "pointer",
+        fontSize: "0.8rem",
       }}
       onClick={() => handleSort(field)}
     >
-      <Box
+      <ArrowDropUpIcon
         sx={{
-          fontSize: "0.7rem",
-          lineHeight: "0.7rem",
+          fontSize: "1rem",
+          mt: "-4px",
           color: sortField === field && sortOrder === "asc" ? "#000" : "#aaa",
         }}
-      >
-        ▲
-      </Box>
-      <Box
+      />
+      <ArrowDropDownIcon
         sx={{
-          fontSize: "0.7rem",
-          lineHeight: "0.7rem",
+          fontSize: "1rem",
+          mt: "-8px",
           color: sortField === field && sortOrder === "desc" ? "#000" : "#aaa",
         }}
-      >
-        ▼
-      </Box>
+      />
     </Box>
   );
 
