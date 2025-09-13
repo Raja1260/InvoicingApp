@@ -26,6 +26,8 @@ import ImageIcon from "@mui/icons-material/Image";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import api from "@/lib/api"; // ✅ your existing API wrapper
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import Editor from "./editor/page";
 
@@ -166,31 +168,32 @@ export default function ItemsTable() {
     <Box
       component="span"
       sx={{
-        ml: 0.5,
-        display: "flex",
+        display: "inline-flex",
         flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        ml: 0.3,
+        position: "relative",
+        top: 2, // adjust vertical alignment with header text
         cursor: "pointer",
+        fontSize: "0.8rem",
       }}
       onClick={() => handleSort(field)}
     >
-      <Box
+      <ArrowDropUpIcon
         sx={{
-          fontSize: "0.7rem",
-          lineHeight: "0.7rem",
+          fontSize: "1rem",
+          mt: "-4px",
           color: sortField === field && sortOrder === "asc" ? "#000" : "#aaa",
         }}
-      >
-        ▲
-      </Box>
-      <Box
+      />
+      <ArrowDropDownIcon
         sx={{
-          fontSize: "0.7rem",
-          lineHeight: "0.7rem",
+          fontSize: "1rem",
+          mt: "-8px",
           color: sortField === field && sortOrder === "desc" ? "#000" : "#aaa",
         }}
-      >
-        ▼
-      </Box>
+      />
     </Box>
   );
 
@@ -297,49 +300,18 @@ export default function ItemsTable() {
             </Button>
           </Box>
         </Box>
-
-        <TableContainer
-          component={Paper}
-          sx={{
-            boxShadow: "none",
-            maxHeight: 550,
-            overflowX: "auto",
-            border: "1px solid #e0e0e0",
-            borderRadius: 2,
-          }}
-        >
-          <Table stickyHeader sx={{ minWidth: 650 }}>
-            <TableHead
-              sx={{
-                "& th": {
-                  backgroundColor: "#FAFAFA",
-                  fontWeight: 400,
-                  fontSize: "14px",
-                  borderBottom: "1px solid #e0e0e0",
-                },
-              }}
-            >
+        <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
+          <Table stickyHeader size="small">
+            <TableHead>
               <TableRow>
                 <TableCell>Picture</TableCell>
+                <TableCell>Item Name{renderSortIcons("itemName")}</TableCell>
                 <TableCell>
-                  <Box display="flex" alignItems="center">
-                    Item Name{renderSortIcons("itemName")}
-                  </Box>
+                  Description{renderSortIcons("description")}
                 </TableCell>
+                <TableCell>Sale Rate{renderSortIcons("salesRate")}</TableCell>
                 <TableCell>
-                  <Box display="flex" alignItems="center">
-                    Description{renderSortIcons("description")}
-                  </Box>
-                </TableCell>
-                <TableCell>
-                  <Box display="flex" alignItems="center">
-                    Sale Rate{renderSortIcons("salesRate")}
-                  </Box>
-                </TableCell>
-                <TableCell>
-                  <Box display="flex" alignItems="center">
-                    Discount %{renderSortIcons("discountPct")}
-                  </Box>
+                  Discount %{renderSortIcons("discountPct")}
                 </TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
@@ -348,7 +320,7 @@ export default function ItemsTable() {
             <TableBody>
               {loading ? (
                 <TableRow>
-                  <TableCell colSpan={6} align="center">
+                  <TableCell colSpan={8} align="center">
                     Loading...
                   </TableCell>
                 </TableRow>
@@ -362,8 +334,8 @@ export default function ItemsTable() {
                           src={itemImages[item.itemID]}
                           alt={item.itemName}
                           sx={{
-                            width: 40,
-                            height: 40,
+                            width: 36,
+                            height: 36,
                             borderRadius: 1,
                             objectFit: "cover",
                           }}
@@ -371,8 +343,8 @@ export default function ItemsTable() {
                       ) : (
                         <Box
                           sx={{
-                            width: 40,
-                            height: 40,
+                            width: 36,
+                            height: 36,
                             backgroundColor: "#f5f5f5",
                             borderRadius: 1,
                             display: "flex",
